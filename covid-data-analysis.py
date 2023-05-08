@@ -3,7 +3,7 @@
 import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
-for dirname, _, filenames in os.walk('D:\Data Engineer Projects\covid-19/dataset.xslx'):
+for dirname, _, filenames in os.walk('dataset.xslx'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
 
@@ -32,7 +32,7 @@ def load_raw():
 
     sqlContext = SQLContext(sc)
     
-    df=pd.read_excel('D:\Data Engineer Projects\covid-19/dataset.xslx')
+    df=pd.read_excel('dataset.xslx')
     
     
     df['Respiratory Syncytial Virus']=df['Respiratory Syncytial Virus'].astype(str)
@@ -75,7 +75,7 @@ df_.show()
 
 #Save Data into a Parquet Format
 df_.select("result", "age").write.mode('overwrite').option("header", "true").save("result_age.parquet", format="parquet")
-df_ = sqlContext.sql("SELECT * FROM parquet.`D:\Data Engineer Projects\covid-19/result_age.parquet`")
+df_ = sqlContext.sql("SELECT * FROM parquet.`result_age.parquet`")
 df_.printSchema()
 
 import pyspark.sql.functions as func
